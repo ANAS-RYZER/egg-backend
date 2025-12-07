@@ -11,29 +11,22 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT || 8080;
-
-// Health check route
+// HEALTH CHECK
 app.get('/health', (req, res) => {
   res.status(200).json({
-    status: 'ok',
-    message: 'Server is up and running 🚀',
-    timestamp: new Date().toISOString(),
+    status: "ok",
+    message: "Server running on Vercel 🚀"
   });
 });
 
+// Routes
 app.use('/api/admin', userroutes);
 app.use('/api/farms', farmRoutes);
 
-const start = async () => {
-  if (!process.env.MONGO_URI) {
-    console.error('MONGO_URI not set in .env');
-    process.exit(1);
-  }
+// DB connect
+if (process.env.MONGO_URI) {
+  connectDB(process.env.MONGO_URI);
+}
 
-  await connectDB(process.env.MONGO_URI);
-
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-};
-
-start();
+// ❗ IMPORTANT: No app.listen()
+export default app;
