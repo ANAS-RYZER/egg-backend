@@ -18,6 +18,11 @@ app.use(
   })
 );
 
+
+if (process.env.MONGO_URI) {
+  connectDB(process.env.MONGO_URI);
+}
+
 app.use(express.json());
 
 // HEALTH CHECK
@@ -34,9 +39,7 @@ app.use('/api/farms', farmRoutes);
 app.use('/api/records', recordRoutes);
 
 // DB connect
-if (process.env.MONGO_URI) {
-  connectDB(process.env.MONGO_URI);
-}
+
 
 // No app.listen() --> required for Vercel
 export default app;
