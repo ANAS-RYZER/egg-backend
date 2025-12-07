@@ -15,7 +15,7 @@ app.use(express.json());
 app.get('/health', (req, res) => {
   res.status(200).json({
     status: "ok",
-    message: "Server running on Vercel 🚀"
+    message: "Love U whyshuuu"
   });
 });
 
