@@ -12,6 +12,7 @@ const router = Router({ mergeParams: true }); // important to access farmId from
 // POST   /api/farms/:farmId/records
 router.post('/', createRecord);
 
+
 // GET    /api/farms/:farmId/records
 router.get('/', getRecords);
 

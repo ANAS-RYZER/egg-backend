@@ -26,13 +26,17 @@ export const createFarm = async (payload: {
 };
 
 export const getFarms = async () => {
-  return await Farm.find().lean();
+  try {
+    const farms = await Farm.find().lean();
+    return { success: true, data: farms };
+  } catch (error : any) {
+    return { success: false, error: error.message };
+  }
 };
-
 
 
 export const getFarmById = async (farmId: string): Promise<IFarm | null> => {
     if (!Types.ObjectId.isValid(farmId)) throw new Error('Invalid farmId');
     const farm = await Farm.findById(farmId);
     return farm;
-  };
+  }; 

@@ -4,12 +4,13 @@ export interface IRecord {
   _id?: Types.ObjectId;
   date: Date;
   shedNo: string;        // or shed id/name
-  ageDays?: number;
+  age?: number;
   openingStock?: number;
   mortality?: number;
   closingStock?: number;
-  foodQtyKg?: number;
-  foodPerHenGrams?: number;
+  eggsCollected?: number;
+  foodQty?: number;
+  gramsOfFoodPerHen?: number;
   notes?: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -34,12 +35,13 @@ export interface IFarm extends Document {
 const RecordSchema = new Schema<IRecord>({
   date: { type: Date, required: true },
   shedNo: { type: String, required: true },
-  ageDays: { type: Number },
+  age: { type: Number },
   openingStock: { type: Number },
   mortality: { type: Number },
   closingStock: { type: Number },
-  foodQtyKg: { type: Number },
-  foodPerHenGrams: { type: Number },
+  eggsCollected: { type: Number },
+  foodQty: { type: Number },
+  gramsOfFoodPerHen: { type: Number },
   notes: { type: String }
 }, { timestamps: true });
 
