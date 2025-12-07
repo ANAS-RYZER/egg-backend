@@ -8,8 +8,16 @@ import recordRoutes from './routes/record.routes';
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 8080;
-app.use(cors());
+
+// FIXED CORS
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 app.use(express.json());
 
 // HEALTH CHECK
@@ -29,9 +37,6 @@ app.use('/api/records', recordRoutes);
 if (process.env.MONGO_URI) {
   connectDB(process.env.MONGO_URI);
 }
- 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
-// ❗ IMPORTANT: No app.listen()
+
+// No app.listen() --> required for Vercel
 export default app;
