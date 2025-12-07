@@ -8,7 +8,16 @@ import farmRoutes from './routes/farm.routes';
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+// FIXED CORS
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 app.use(express.json());
 
 // HEALTH CHECK
@@ -28,5 +37,5 @@ if (process.env.MONGO_URI) {
   connectDB(process.env.MONGO_URI);
 }
 
-// ❗ IMPORTANT: No app.listen()
+// No app.listen() --> required for Vercel
 export default app;
